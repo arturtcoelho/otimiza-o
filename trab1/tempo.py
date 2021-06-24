@@ -107,21 +107,14 @@ for k in equations.keys():
     disp = 0
     for j in equations[k]:
         i = j[0]
-        # if (i == last): 
-        #     disp += 1
+        if (i == last): 
+            disp = 1
         p.append(f"{j[1] if j[1] > 1 else ''}x{i+disp}")
         last = j[0]
+        disp = 0
     eq = " + ".join(p)
     eq += f" >= {reqs[k][1]}"
     borders.append(eq)
-
-for r in reqs:
-    print(r)
-print()
-
-for b in base:
-    print(b)
-print()
 
 # print lp solver entry to stdout
 mins = [f"x{i}" for i in range(len(base))]
@@ -129,3 +122,19 @@ print(f"min: {' + '.join(mins)};")
 print(f"")
 for b in borders:
     print(f"{b};")
+
+output = open("equations.out", "w")
+
+for r in reqs:
+    print(f"i: {r[0]} qtd: {r[1]} val: {r[2]}", file=output)
+print(file=output)
+
+for b in base:
+    print(b, file=output)
+print(file=output)
+
+mins = [f"x{i}" for i in range(len(base))]
+print(f"min: {' + '.join(mins)};", file=output)
+print(f"", file=output)
+for b in borders:
+    print(f"{b};", file=output)
