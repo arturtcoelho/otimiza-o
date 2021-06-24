@@ -76,18 +76,23 @@ for k, val in viable_dict.items():
 # generate final equations from all viable combinations
 combinations = []
 equations = {v[0]:[] for v in reqs}
+disp = 0
 for i, v in enumerate(viable_dict2.keys()):
     # for each multiplier combination
+    mod = 0
     for val in viable_dict2[v]:
+        mod += 1
         eq = []
         for j, x in enumerate(val[0]):
-            eq += [f"{val[1][j] if val[1][j] > 1 else ''}x{x}"]
+            eq += [f"{f'{val[1][j]} x ' if val[1][j] > 1 else ''}{reqs[x][2]}"]
 
         eq = " + ".join(eq)
         combinations.append(eq)
 
         for j, k in enumerate(val[0]):
-            equations[k] = equations[k] + [[i, val[1][j]]]
+            equations[k] = equations[k] + [[i+disp, val[1][j]]]
+    if mod > 1:
+        disp += 1
 
 # get formated bases
 base = []
@@ -97,14 +102,22 @@ for i, b in enumerate(combinations):
 # get linear problem
 borders = []
 for k in equations.keys():
-    p = [f"{k[1] if k[1] > 1 else ''}x{k[0]}" for k in equations[k]]
+    p = []
+    last = -1
+    disp = 0
+    for j in equations[k]:
+        i = j[0]
+        # if (i == last): 
+        #     disp += 1
+        p.append(f"{j[1] if j[1] > 1 else ''}x{i+disp}")
+        last = j[0]
     eq = " + ".join(p)
     eq += f" >= {reqs[k][1]}"
     borders.append(eq)
 
-# for r in reqs:
-#     print(r)
-# print()
+for r in reqs:
+    print(r)
+print()
 
 for b in base:
     print(b)
