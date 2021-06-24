@@ -2,7 +2,7 @@
 
 from itertools import combinations
 
-total_time = 300 #min
+total_time = 540 #min
 
 # Read number of machines and number of request sizes and quantities
 n_mach, n_req = input().split()
