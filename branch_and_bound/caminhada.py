@@ -42,9 +42,7 @@ class Path_finder():
         self.test_get_path3()
         print(file=stderr)
         print(f"number of tests realized: {TESTS}", file=stderr)
-        print(f"This graph contains n: {n} nodes and m: \
-            {int(sum([sum([1 for g in gr if g]) for gr in graph])/2)} \
-            vertices", file=stderr)
+        print(f"This graph contains n: {n} nodes and m: {int(sum([sum([1 for g in gr if g]) for gr in graph])/2)} vertices", file=stderr)
 
     @timing
     def test_get_path0(self):
