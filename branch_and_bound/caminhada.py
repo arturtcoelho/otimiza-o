@@ -3,7 +3,6 @@
 from functools import wraps
 from time import time
 from sys import stderr
-import math
 
 # number of tests realized
 TESTS = 100
@@ -29,9 +28,6 @@ for i in range(n-1):
             graph[i][j+1] = int(node[j-i])
             graph[j+1][i] = int(node[j-i])
 
-# # print n nodes m vertices
-# print(n)
-# print(sum([sum([1 for g in gr if g]) for gr in graph])/2)
 
 class Path_finder():
 
@@ -46,6 +42,9 @@ class Path_finder():
         self.test_get_path3()
         print(file=stderr)
         print(f"number of tests realized: {TESTS}", file=stderr)
+        print(f"This graph contains n: {n} nodes and m: \
+            {int(sum([sum([1 for g in gr if g]) for gr in graph])/2)} \
+            vertices", file=stderr)
 
     @timing
     def test_get_path0(self):
